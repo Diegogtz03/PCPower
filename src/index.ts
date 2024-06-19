@@ -63,6 +63,7 @@ app.get('/state', (req: Request, res: Response) => {
 // POWER ON PC
 app.post('/on', (req: Request, res: Response) => {
   console.log(process.env.AUTHORIZATION_HEADER, req.headers.Authorization)
+  console.log(req.headers)
   if (req.headers.Authorization !== process.env.AUTHORIZATION_HEADER) {
     return res.status(401).send("Unauthorized")
   }
