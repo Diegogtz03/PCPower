@@ -2,11 +2,11 @@ import express, { Request, Response } from 'express';
 import WebSocket, { WebSocketServer } from 'ws';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = parseInt(process.env.PORT || "3009");
 let arduinoClient:any = null;
 
 const wss = new WebSocketServer({
-  port: 3100,
+  port: parseInt(process.env.WS_PORT || "3100"),
 });
 
 wss.on("connection", function connection(ws:any, request:any, client:any) {
@@ -62,7 +62,6 @@ app.get('/state', (req: Request, res: Response) => {
 
 // POWER ON PC
 app.post('/on', (req: Request, res: Response) => {
-  // CHECK CURRENT STATE
   if (req.headers.Authorization !== process.env.AUTHORIZATION_HEADER) {
     return res.status(401).send("Unauthorized")
   }
@@ -78,7 +77,6 @@ app.post('/on', (req: Request, res: Response) => {
 
 // POWER OFF PC
 app.post('/off', (req: Request, res: Response) => {
-  // CHECK CURRENT STATE
   if (req.headers.Authorization !== process.env.AUTHORIZATION_HEADER) {
     return res.status(401).send("Unauthorized")
   }

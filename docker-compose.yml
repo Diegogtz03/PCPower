@@ -1,0 +1,14 @@
+version: "3"
+services:
+  pcpower:
+    container_name: pcpower
+    build: .
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - router-network
+
+networks:
+  router-network:
+    external: true
