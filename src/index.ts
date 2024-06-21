@@ -25,6 +25,8 @@ app.get('/', (req: Request, res: Response) => {
   if (arduinoClient.readyState === WebSocket.OPEN) {
     return res.status(200).send('Arduino connected');
   }
+  
+  return res.status(500).send('Unknown error');
 })
 
 // CHECK and RETURN PC's power state
