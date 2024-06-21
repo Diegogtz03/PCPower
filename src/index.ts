@@ -10,8 +10,11 @@ const wss = new WebSocketServer({
 });
 
 wss.on("connection", function connection(ws:any, request:any, client:any) {
-  console.log("SOMEONE CONNECTED!")
   arduinoClient = ws
+})
+
+wss.on("close", function close() {
+  arduinoClient = null
 })
 
 app.get('/', (req: Request, res: Response) => {
