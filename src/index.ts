@@ -95,6 +95,21 @@ app.post('/off', (req: Request, res: Response) => {
   return res.status(200).send("OK")
 })
 
+// FORCE POWER OFF PC
+app.post('/foff', (req: Request, res: Response) => {
+  if (req.headers.authorization !== process.env.AUTHORIZATION_HEADER) {
+    return res.status(401).send("Unauthorized")
+  }
+
+  if (!arduinoClient || arduinoClient.readyState !== WebSocket.OPEN) {
+    return res.status(500).send('Arduino not connected');
+  }
+
+  arduinoClient.send(JSON.stringify({ msg: "FOFF" }));
+
+  return res.status(200).send("OK")
+})
+
 app.listen(port, () => {
   console.log("Listening...")
 })
